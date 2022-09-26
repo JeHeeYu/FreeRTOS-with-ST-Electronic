@@ -1,0 +1,10 @@
+.settings/
+
+Debug/
+
+Middlewares/
+
+*.launch
+*.ld
+*.ld
+*.ioc
