@@ -74,8 +74,6 @@ osStatus osKernelStart (void)
 }
 </pre>
 
-
-
 ## FREE RTOS Porting Example
 ### 1. FREERTOS Configure Setup
 　　1-1. Middleware - FREERTOS 선택
