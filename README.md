@@ -74,6 +74,80 @@ osStatus osKernelStart (void)
 }
 </pre>
 
+## Task의 우선순위
+<pre>
+static void Task1( void const *pvParameters )
+{
+	const char *pcTaskName = "Task1";
+
+	pvParameters = pvParameters; // for compiler warning
+
+	/* Print out the name of this task. */
+	printf( "%s is running\n", pcTaskName );
+
+	printf("\n-------  Task1 information -------\n");
+	printf("task1 name = %s \n",pcTaskGetName( xHandle1 ));
+	printf("task1 priority = %d \n",(int)uxTaskPriorityGet( xHandle1 ));
+//	printf("task1 status = %d \n",eTaskGetState( xHandle1 ));
+	printf("----------------------------------\n");
+
+	while(1) {
+	/* TODO #3:
+		코드를 실행 하여 보고
+		vTaskDelay() 코드를 주석 처리한 후 그 결과를 설명한다 */
+#if 1 // No comment
+vTaskDelay (pdMS_TO_TICKS (100));
+printf("a"); fflush(stdout);	// 문자 'a' 출력
+#endif // TODO #3
+
+		task1timer++;
+	}
+}
+
+static void Task2( const struct Param_types *Param )
+{
+	const char *pcTaskName = "Task2";
+
+	/* Print out the name of this task. */
+	printf( "%s is running\n", pcTaskName );
+
+	printf("\n-------  Task2 parameter passed from main --------\n");
+	printf("task2 first parameter = %d \n",Param->P1);
+	printf("task2 second parameter = %d \n",Param->P2);
+	printf("--------------------------------------------------\n");
+
+	while(1) {
+	/* TODO #3:
+		코드를 실행 하여 보고
+		vTaskDelay() 코드를 주석 처리한 후 그 결과를 설명한다 */
+#if 1 // No comment
+vTaskDelay (pdMS_TO_TICKS (1000));
+printf("b"); fflush(stdout);	// 문자 'a' 출력
+#endif // TODO #3
+
+		task2timer++;
+	}
+}
+
+// 실행 결과
+aaaaaaaaaabaaaaaaaaaab
+</pre>
+b를 출력하는 Task2의 우선순위가 더 높더라도 a가 더 많이 출력되는 현상을 볼 수 있음
+<br>
+<br>
+우선순위가 높다고 오래 실행되는 것은 아니고, 휴먼을 적게 할수록 오래 실행된다.
+<br>
+Idle 태스크의 특징은 휴먼을 하지 않아 오래 실행될 수 있음
+<br>
+<br>
+다른 태스크가 동작 중이지 않아야 내 태스크가 더 CPU 시간을 많이 할당해서 동작을 오래할 수 있음
+<br>
+<br>
+이러한 정보들을 Priority Scheduling 이라고 한다.
+우선순위 스케줄링은 태스크를 중요도에 의해 가중치를 두어 우선적으로 실행 할 수 있는 개념을 말하며,
+<br>
+RTOS에서 필수적으로 지원하는 스케줄링 방법이다. (선점형 스케줄링의 특성을 부여받음)
+
 ## FREE RTOS Porting Example
 ### 1. FREERTOS Configure Setup
 　　1-1. Middleware - FREERTOS 선택
