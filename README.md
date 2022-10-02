@@ -195,6 +195,25 @@ TaskHandle_t xTaskCreateStatic(TaskFunction_t pxTaskCode,..);
 BaseType_t xTaskCreate(TaskFunction_t pxTaskCode,..);
 </pre>
 
+## FreeRTOS API Define
+STM32CubeIDE에서는 FreeRTOS의 API를 사용하기 위해 전처리문이 존재한다.
+<br>
+해당 define 값을 주석 또는 제거할 경우 API를 사용할 수 없다.
+<pre>
+// FreeRTOSConfig_base.h
+
+/* Set the following definitions to 1 to include the API function, or zero
+to exclude the API function. */
+#define INCLUDE_vTaskPrioritySet            1
+#define INCLUDE_uxTaskPriorityGet           1
+#define INCLUDE_vTaskDelete                 1
+#define INCLUDE_vTaskCleanUpResources       0
+#define INCLUDE_vTaskSuspend                1
+#define INCLUDE_vTaskDelayUntil             0
+#define INCLUDE_vTaskDelay                  1
+#define INCLUDE_xTaskGetSchedulerState      1
+</pre>
+
 ## FREE RTOS Porting Example
 ### 1. FREERTOS Configure Setup
 　　1-1. Middleware - FREERTOS 선택
