@@ -415,3 +415,7 @@ IPC 통신 방법에는 여러 가지가 존재한다.
 <br>
 ### 4. main.c 코드 수정
 [[0. Port_Basic]](https://github.com/JeHeeYu/FreeRTOS-with-ST-Electronic/blob/main/Example/0.%20Port_Basic/freertos_portF401RE/Core/Src/main.c)
+<br>
+<br>
+<br>
+출처 : https://www.inflearn.com/course/freertos-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D
