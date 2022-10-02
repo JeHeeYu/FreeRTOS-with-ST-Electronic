@@ -148,6 +148,53 @@ Idle 태스크의 특징은 휴먼을 하지 않아 오래 실행될 수 있음
 <br>
 RTOS에서 필수적으로 지원하는 스케줄링 방법이다. (선점형 스케줄링의 특성을 부여받음)
 
+## 메모리 단편화(Memory Fragmentation)
+메모리 단편화란 기억 장치의 빈 공간 또는 자료가 여러 개의 조각으로 나뉘는 현상을 말한다.
+<br>
+메모리의 크기가 가용한 메모리의 크기보다 작은데도 불구하고 메모리 할당이 실패할 수 있다.
+<br>
+<br>
+FreeRTOS에선 malloc과 같은 함수를 사용하지 않고, FreeRTOS에서 제공하는 동적 함수를 사용한다.
+<br>
+기존 C언어의 malloc같은 경우 동적 할당 시 heap 메모리에 저장 되는데, RTOS의 경우 bss 영역도 사용될 수 있음
+<br>
+<br>
+태스크 스택 메모리는 정적, 동적 할당 사용 가능하다.
+<br>
+STM32CubeIde에서 define 값을 조정하여 동적 또는 정적 할당을 사용한다.
+<pre>
+// FreeRTOSConfig_base.h
+
+#define configSUPPORT_STATIC_ALLOCATION          0        // 정적 할당
+#define configSUPPORT_DYNAMIC_ALLOCATION         1        // 동적 할당
+</pre>
+<br>
+메모리 단편화 현상은 응용프로그램이 일단 한 번 생성한 태스크는 프로그램 종료까지 삭제하지 않고 유지 하는 경우에만 사용하는 것이 바람직
+<br>
+<br>
+메모리 단편화 해결 방법
+<br>
+1. 메모리 할당 시 큰 사이즈로 할당
+2. 메모리 할당 후 태스크 생성
+
+## 스택 메모리 할당
+태스크 스택의 크기는 응용프로그램마다 다르며 태스크 스택의 크기는 태스크에서 호출하는 함수들의 중복 횟수,
+<br>
+그리고 해당 함수에서 사용되는 모든 지역변수의 갯수에 따라 결정된다.
+<pre>
+// 동적 할당
+
+#define configSUPPORT_DYNAMIC_ALLOCATION	1
+TaskHandle_t xTaskCreateStatic(TaskFunction_t pxTaskCode,..);
+</pre>
+
+<pre>
+// 정적 할당
+
+#define configSUPPORT_STATIC_ALLOCATION	1
+BaseType_t xTaskCreate(TaskFunction_t pxTaskCode,..);
+</pre>
+
 ## FREE RTOS Porting Example
 ### 1. FREERTOS Configure Setup
 　　1-1. Middleware - FREERTOS 선택
