@@ -214,6 +214,29 @@ to exclude the API function. */
 #define INCLUDE_xTaskGetSchedulerState      1
 </pre>
 
+## vTaskDelay 함수의 인자
+vTaskDelay 함수의 인자는 상수가 아닌 Tick의 단위를 주어야 함
+<pre>
+// 이 경우는 sysTick에 1000개의 인자를 넘겨주는 것
+vTaskDelay(1000);    
+
+// 이 경우는 sysTick에 1000ms 단위를 넘기는 것
+vTaskDelay(pdMS_TO_TICKS(1000));
+</pre>
+
+## 임계 영역(Critical Section)
+임계 영역이란 공유 자원을 사용 중인 함수내의 일부 혹은 전체 영역을 말한다.
+<br>
+일단 이 코드 영역의 실행이 시작되면 다른 태스크가 이 영역을 선점하여 실행하는 일이 있으면 안됨(우선 순위가 높더라도)
+<br>
+<br>
+임계 영역을 보호하기 위한 장치는 다음과 같다.
+<ul>
+<li>인터럽트 중단</li>
+<li>스케줄링 중단</li>
+<li>세마포어(상호배제 커널 서비스)</li>
+</ul>
+
 ## FREE RTOS Porting Example
 ### 1. FREERTOS Configure Setup
 　　1-1. Middleware - FREERTOS 선택
