@@ -237,6 +237,31 @@ vTaskDelay(pdMS_TO_TICKS(1000));
 <li>세마포어(상호배제 커널 서비스)</li>
 </ul>
 
+## 상호 배제(mutual exclusion, Mutext, 뮤텍스)
+상호 배제란 동시 프로그래밍 환경에서 공유 불가능한 자원의 동시 사용을 피하기 위해 사용되는 알고리즘을 말한다.
+<br>
+임계 구역(Critical Section)에서 불리는 코드 영역에 의해 구현된다.
+<br>
+<br
+공유 불가능한 자원의 예로, 동시에 실행되고 있는 프로그램 간의 사용되는 비트 단위의 플래그, 계수기, 큐 등이 있다.
+
+### 이상적인 상호 배제 방법
+<ul>
+<li>상호배제를 사용하지 않음</li>
+<li>공유 자원을 되도록 사용하지 않음 (전역 변수)</li>
+<li>공유 자원을 사용하더라도 이 자원을 다수의 태크스가 공유 하도록 하지 않음</li>
+</ul>
+
+## FreeRTOS의 절대 우선순위
+FreeRTOS에서 우선순위는 다음과 같으며 숫자가 낮을 수록 높은 우선순위를 가진다.
+<ol>
+<li>taskENTER_CRITICAL</li>
+<li>일반 인터럽트(TICK, IRQ)</li>
+<li>높은 우선순위 (개발자 설정)</li>
+<li>IDLE Task</li>
+<li>세마포어(상호배제 커널 서비스)</li>
+</ol>
+
 ## FREE RTOS Porting Example
 ### 1. FREERTOS Configure Setup
 　　1-1. Middleware - FREERTOS 선택
